@@ -10,6 +10,8 @@ import Foundation
 class Solution {
     func containsDuplicate(_ nums: [Int]) -> Bool {
         
+        
+        // 1st Approach using Dictinory
         var dict : [Int:Bool] = [:]
         
         for num  in nums {
@@ -20,5 +22,13 @@ class Solution {
             }
         }
         return false
+        
+        
+        
+        //2nd Approch using set
+        
+        return Set(nums).count != nums.count
+        
+        
     }
 }
