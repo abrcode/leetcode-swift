@@ -42,3 +42,53 @@ func maxChocolate(money: Int, price: Int, wrapperForChocolate : Int ) -> Int {
 }
 
 print("Max choclate :-> \(maxChocolate(money: 30, price: 3, wrapperForChocolate: 3))")
+
+
+
+
+
+
+
+
+/*
+ Find diff between SecondSmallest and SecondLargest from the given array
+ 
+ eg : [5, 3, 2, 7, 4, 9]
+ */
+
+
+
+func checkDiff() -> Int {
+    
+    var numbers = [5, 3, 2, 7, 4, 9]
+    
+    var largest = Int.min
+    var secondLargest = Int.min
+    
+    var smallest =  Int.max
+    var secondSmallest =  Int.max
+    
+    
+    
+    for number in numbers {
+        
+        if largest < number {
+            secondLargest = largest
+            largest = number
+        } else if secondLargest < number && secondLargest != largest {
+            secondLargest = number
+        }
+        
+        if smallest > number {
+            secondSmallest = smallest
+            smallest = number
+        } else if secondSmallest > number && secondSmallest != smallest {
+            secondSmallest = number
+        }
+        
+    }
+    
+    return (largest - smallest)
+}
+
+print("Diff betwen two valyes --> \(checkDiff())")
