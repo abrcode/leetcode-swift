@@ -65,7 +65,9 @@ func commonItemByBrute(_ A: [Int], _ B: [Int]) -> Bool {
 
 
 
-/*  Prooblem Statemnet :- Two Sum */
+/*
+    Prooblem Statemnet :- Two Sum
+*/
 
 func twoSum(_ array :[ Int] , target : Int) -> [Int] {
     // Tar : 10
@@ -90,7 +92,52 @@ func twoSum(_ array :[ Int] , target : Int) -> [Int] {
 
 
 
-/*  Prooblem Statemnet :- Rotate Array by kth time */
+/*
+   Three Sum Problem
+*/
+
+func threeSum(_ array : [Int] , target : Int) -> [[Int]] {
+    
+    var result : [[Int]] = []
+    var soretdArray = array.sorted()
+    
+    for (index, number) in soretdArray.enumerated(){
+        
+        // If current index value and next inedx value are same
+        if index > 0 && soretdArray[index] == soretdArray[index - 1] {
+            continue
+        }
+     
+        var leftPoint = index + 1
+        var rightPoint = soretdArray.count - 1
+        
+        while leftPoint < rightPoint {
+            
+            
+            let sum = soretdArray[index] + soretdArray[leftPoint] + soretdArray[rightPoint]
+            
+            
+            if sum < target {
+                leftPoint += 1
+            } else if sum > target {
+                rightPoint -= 1
+            } else {
+                
+                result.append([soretdArray[index] , soretdArray[leftPoint], soretdArray[rightPoint]])
+                
+                leftPoint += 1
+
+            }
+        }
+    }
+    return result
+}
+
+
+
+/*
+ Prooblem Statemnet :- Rotate Array by kth time
+*/
 
 func rotateArray(_ array : [Int] , K : Int) -> [Int] {
     
