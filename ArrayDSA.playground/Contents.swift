@@ -126,13 +126,23 @@ func threeSum(_ array : [Int] , target : Int) -> [[Int]] {
                 result.append([soretdArray[index] , soretdArray[leftPoint], soretdArray[rightPoint]])
                 
                 leftPoint += 1
+                rightPoint -= 1
+                // Skip duplicate left values
+                while leftPoint < rightPoint && soretdArray[leftPoint] == soretdArray[leftPoint - 1] {
+                    leftPoint += 1
+                }
+                
+                // Skip duplicate right values
+                while leftPoint < rightPoint && soretdArray[rightPoint] == soretdArray[rightPoint + 1] {
+                    rightPoint -= 1
+                }
 
             }
         }
     }
     return result
 }
-
+print("Array : \(threeSum([0,0,0,0], target: 0))")
 
 
 /*
