@@ -474,3 +474,182 @@ func maxDistance(arr : [Int])  {
 }
 
 
+// Merge Sort
+func merge(leftArray : [Int], rightArray :[Int]) -> [Int] {
+    
+    var sortedArray: [Int] = []
+    var left = leftArray
+    var right = rightArray
+    
+    while left.count > 0 && right.count > 0{
+        
+        if left[0] < right[0] {
+            sortedArray.append(left.removeFirst())
+        } else {
+            sortedArray.append(right.removeFirst())
+        }
+        
+    }
+    
+    return sortedArray + left + right
+}
+
+
+
+func mergeSort(unsoretdArray : [Int]) -> [Int] {
+    
+    guard unsoretdArray.count > 1 else { return unsoretdArray }
+    
+    
+    var middle = unsoretdArray.count / 2
+    
+    var leftArray = Array(unsoretdArray[0..<middle])
+    
+    var rightArry = Array(unsoretdArray[middle..<unsoretdArray.count])
+   
+    return merge(leftArray: mergeSort(unsoretdArray: leftArray), rightArray: mergeSort(unsoretdArray: rightArry))
+}
+
+//print("Whole Array :-> \(mergeSort(unsoretdArray: [30,24,56,12,67,89,18,34,7]))")
+
+
+
+
+/*
+ Median of Two Sorted Array :->  (Use Merge Sort for make it one)
+ */
+
+
+func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
+    
+    var sortedArray : [Int] = Array(repeating: 0, count: nums1.count + nums2.count)
+
+    var i = 0
+    var j = 0
+    var k = 0
+        
+    while j < nums1.count && k < nums2.count {
+        
+        if nums1[j] < nums2[k] {
+            sortedArray[i] = nums1[j]
+            j += 1
+        } else {
+            sortedArray[i] = nums2[k]
+            k += 1
+        }
+        
+        i += 1
+    }
+    
+    while j < nums1.count {
+        sortedArray[i] = nums1[j]
+        i += 1
+        j += 1
+    }
+    
+    while k < nums2.count {
+        sortedArray[i] = nums2[k]
+        i += 1
+        k += 1
+    }
+    
+    print("Sorted Array Before :-> \(sortedArray)")
+    return sortedArray
+}
+
+//print("Sorted Array :-> \(findMedianSortedArrays([1,4,8], [2,3,5,9]))")
+
+
+
+
+func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
+    
+    var i = 0
+    var j = 0
+    var k : Int = 0
+    let m = nums1.count
+    let n = nums2.count
+    
+    
+    var mergedArray : [Int] = Array(repeating: 0, count: m + n)
+    
+    while i < m && j < n {
+        if nums1[i] < nums2[j] {
+            mergedArray[k] = nums1[i]
+            i += 1
+        } else {
+            mergedArray[k] = nums2[j]
+            j += 1
+        }
+        k += 1
+    }
+    
+    while i < m {
+        mergedArray[k] = nums1[i]
+        i += 1
+        k += 1
+    }
+    
+    while j < n {
+        mergedArray[k] = nums2[j]
+        j += 1
+        k += 1
+    }
+    
+    
+    if mergedArray.count == (m + n) {
+        var numbers = mergedArray.count
+        
+        if (numbers % 2 != 0) {
+            
+            let mid = getIndexValue(n: ((numbers + 1)/2), givenArray: mergedArray)
+            print("odd")
+            return mid
+            
+        } else {
+            print("even")
+            let mid = ((getIndexValue(n:  numbers/2, givenArray: mergedArray)) + ( getIndexValue(n: (numbers/2) + 1, givenArray: mergedArray)) ) / 2
+            return mid
+            
+        }
+    } else {
+        return 0
+    }
+}
+
+func getIndexValue(n : Int, givenArray : [Int]) -> Double{
+    if n > 0 {
+        return Double(givenArray[n-1])
+    }
+    return 0.0
+}
+
+
+print("median of given array :-> \(findMedianSortedArrays([1, 3], [2,4]))")
+
+
+// Find Mini in Sorted Rotated Array
+func findMin(_ nums: [Int]) -> Int {
+    
+    guard nums.count > 0 else { return 0}
+    // [5,1,2,3,4]
+    var left = 0
+    var right = nums.count - 1
+    
+    for (index, number) in nums.enumerated(){
+        while (left < right) {
+            
+            var mid = (left + right) / 2
+            
+            if nums[mid] > nums[right] {
+                left = mid + 1
+            } else {
+                right = mid
+            }
+            
+        }
+    }
+    return nums[left]
+}
+
+print("Find Min \(findMin([5,1,2,3,4]))")
