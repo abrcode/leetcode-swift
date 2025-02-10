@@ -44,3 +44,33 @@ func isBalanced(_ root: TreeNode?) -> Bool {
 
 let root = TreeNode(1, TreeNode(2, TreeNode(3), TreeNode(4)), TreeNode(2, nil, TreeNode(4)))
 print("Balance Tree :->  \(isBalanced(root))")
+
+
+/*
+ Lowest common ancestor :- https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
+ */
+
+func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
+    
+    guard let root = root else { return nil }
+    
+    if root.val == p?.val || root.val == q?.val {
+        return root
+    }
+    
+    let leftN = lowestCommonAncestor(root.left, p, q)
+    let rightN = lowestCommonAncestor(root.right, p, q)
+    
+    if leftN?.val != nil && rightN?.val != nil {
+        return root
+    }
+    
+    if leftN != nil && rightN == nil  {
+        return leftN
+    }
+    
+    return rightN
+    
+}
+
+
